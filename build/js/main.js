@@ -11,17 +11,22 @@ const displayCompany = document.querySelector("#display-company");
 const arrowFeatures = toggleFeatures.querySelector('img');
 const arrowCompany = toggleCompany.querySelector('img');
 
-
+const content = document.querySelector('#dynamic-content');
 // Function to open the sidebar
 function openSidebar() {
     displaySidebar.classList.remove('hidden');
     displaySidebar.classList.add('flex');
+    content.classList.remove('hidden')
+    content.classList.add('block')
+
 }
 
 // Function to close the sidebar
 function closeSidebar() {
     displaySidebar.classList.add('hidden');
     displaySidebar.classList.remove('flex');
+    content.classList.add('hidden')
+    content.classList.remove('block')
 }
 
 // Event listener to open the sidebar when the hamburger button is clicked
@@ -64,3 +69,28 @@ toggleCompany.addEventListener('click', () => {
         arrowCompany.classList.add('rotate-180');
     }
 });
+  // Function to adjust the width of the content div
+  function adjustContentWidth() {
+    // Get a reference to the content div
+    const content = document.querySelector('#dynamic-content');
+    
+    // Get the width of the navbar
+    const navbarWidth = document.querySelector('#display-sidebar').offsetWidth;
+    
+    // Get the current width of the browser window
+    const pageWidth = window.innerWidth;
+    
+    // Check if the screen width is 639px or below
+        // Set the width of the content div dynamically based on the navbar width
+        content.style.width = `calc(100% - ${navbarWidth}px)`;
+    // } else {
+    //     // Set the width of the content div to 100% for screens wider than 639px
+    //     content.style.width = '100%';
+    // }
+}
+
+// Initial adjustment on page load
+adjustContentWidth();
+
+// Listen for window resize events to adjust width dynamically
+window.addEventListener('resize', adjustContentWidth);
